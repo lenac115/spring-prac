@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <title>도서 목록</title>
+</head>
+<body>
+<h1>도서 목록</h1>
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>책 이름</th>
+        <th>저자</th>
+        <th>발행 년도</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}"></td>
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.publicationYear}"></td>
+        <td><form th:action="@{/books/editBook/{bookId}(bookId=${book.id})}" method="get">
+            <button type="submit">책 수정</button>
+        </form>
+        </td>
+        <td>
+            <a th:href="@{/books/deleteBook/{bookId}(bookId=${book.id})}"
+               th:data-confirm-delete="|${book.title}을 정말 삭제합니까?|"
+               onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">
+                삭제
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/books/addBook}" method="get">
+    <button type="submit">책 생성</button>
+</form>
+</body>
+</html>

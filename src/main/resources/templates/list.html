@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>제품 목록</title>
+</head>
+<body>
+<h1>제품 목록</h1>
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>상품명</th>
+        <th>가격</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+    </tr>
+    </tbody>
+</table>
+<form th:action="@{/products/save}" method="post">
+    <label>
+        상품명
+        <input type="text" name="name" />
+    </label>
+    <label>
+        가격
+        <input type="text" name="price" />
+    </label>
+    <button type="submit">저장</button>
+</form>
+</body>
+</html>
